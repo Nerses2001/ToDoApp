@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System;
-using ToDoAppUsingRepositoryPattern.Infrastructure.Models.UserModel.Address;
-namespace ToDoAppUsingRepositoryPattern.Infrastructure.Models.UserModel
+using ToDoAppUsingRepositoryPattern.Core.Models.UserModel.AddressModel;
+namespace ToDoAppUsingRepositoryPattern.Core.Models.UserModel
 {
     public class User
     {
@@ -33,22 +32,22 @@ namespace ToDoAppUsingRepositoryPattern.Infrastructure.Models.UserModel
         [DataType(DataType.Date)]
         public DateTime DateOfBirth { get; private set; }
 
-       [Required(ErrorMessage = "Address is required.")]
-        public AddressModel Address { get; private set; }
+        [Required(ErrorMessage = "Address is required.")]
+        public UserAddress Address { get; private set; }
 
 
         public User(int userId, string firstName, string lastName, string email, string passwordHash,
-                     string phoneNumber, DateTime dateOfBirth, AddressModel address)
+                     string phoneNumber, DateTime dateOfBirth, UserAddress address)
         {
 
-            this.UserId = userId;
-            this.FirstName = firstName;
-            this.LastName = lastName;
-            this.Email = email;
-            this.PasswordHash = passwordHash;
-            this.PhoneNumber = phoneNumber;
-            this.DateOfBirth = dateOfBirth;
-            this.Address = address;
+            UserId = userId;
+            FirstName = firstName;
+            LastName = lastName;
+            Email = email;
+            PasswordHash = passwordHash;
+            PhoneNumber = phoneNumber;
+            DateOfBirth = dateOfBirth;
+            Address = address;
             ValidateInput();
 
         }

@@ -1,9 +1,9 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
 
-namespace ToDoAppUsingRepositoryPattern.Infrastructure.Models.UserModel.Address
+namespace ToDoAppUsingRepositoryPattern.Core.Models.UserModel.AddressModel
 {
-    public class AddressModel
+    public class UserAddress
     {
         [Required(ErrorMessage = "Street cannot be null or empty.")]
         public string Street { get; private set; }
@@ -24,13 +24,13 @@ namespace ToDoAppUsingRepositoryPattern.Infrastructure.Models.UserModel.Address
         [RegularExpression(@"^[A-Za-z]+$", ErrorMessage = "Country should only  symbols.")]
         public string Country { get; private set; }
 
-        public AddressModel(string street, string city, string state, string postalCode, string country)
+        public UserAddress(string street, string city, string state, string postalCode, string country)
         {
-            this.Street = street;
-            this.City = city;
-            this.State = state;
-            this.PostalCode = postalCode;
-            this.Country = country;
+            Street = street;
+            City = city;
+            State = state;
+            PostalCode = postalCode;
+            Country = country;
 
             ValidateInput();
         }
