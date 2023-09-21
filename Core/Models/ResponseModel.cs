@@ -1,6 +1,4 @@
-﻿
-
-namespace ToDoAppUsingRepositoryPattern.Infrastructure.Models
+﻿namespace ToDoAppUsingRepositoryPattern.Core.Models
 {
     public class ResponseModel<T>
     {
@@ -10,8 +8,8 @@ namespace ToDoAppUsingRepositoryPattern.Infrastructure.Models
 
         public ResponseModel(bool success, string message, T Data)
         {
-            this.Success = success;
-            this.Message = message;
+            Success = success;
+            Message = message;
             this.Data = Data;
         }
     }

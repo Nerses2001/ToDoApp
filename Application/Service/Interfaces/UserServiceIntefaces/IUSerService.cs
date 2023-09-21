@@ -2,8 +2,8 @@
 
 namespace ToDoAppUsingRepositoryPattern.Application.Service.Interfaces.UserServiceIntefaces
 {
-    internal interface IUSerService
+    internal interface IUserService
     {
-        Task CreateUserAsync(User user);
+        void CreateUser(User user);
     }
 }

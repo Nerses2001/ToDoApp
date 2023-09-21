@@ -1,4 +1,4 @@
-﻿namespace ToDoAppUsingRepositoryPattern.Infrastructure.Interfaces.ServerInterfases
+﻿namespace ToDoAppUsingRepositoryPattern.Application.Service.Interfaces.ServerInterfases
 {
     internal interface IServerProvider
     {

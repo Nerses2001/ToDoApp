@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System.Net;
 using System.Text;
-using ToDoAppUsingRepositoryPattern.Infrastructure.Models;
+using ToDoAppUsingRepositoryPattern.Core.Models;
 
-namespace ToDoAppUsingRepositoryPattern.Infrastructure.Abstracts.ServerAbstracts
+namespace ToDoAppUsingRepositoryPattern.Core.Abstractions.ServerAbstracts
 {
     abstract class Response
     {
@@ -17,6 +17,7 @@ namespace ToDoAppUsingRepositoryPattern.Infrastructure.Abstracts.ServerAbstracts
             response.ContentLength64 = buffer.Length;
 
             await response.OutputStream.WriteAsync(buffer);
+
             response.Close();
         }
     }

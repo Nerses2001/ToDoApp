@@ -5,6 +5,7 @@ namespace ToDoAppUsingRepositoryPattern.Core.Models.UserModel.AddressModel
 {
     public class UserAddress
     {
+
         [Required(ErrorMessage = "Street cannot be null or empty.")]
         public string Street { get; private set; }
 
@@ -23,7 +24,7 @@ namespace ToDoAppUsingRepositoryPattern.Core.Models.UserModel.AddressModel
         [Required(ErrorMessage = "Country cannot be null or empty.")]
         [RegularExpression(@"^[A-Za-z]+$", ErrorMessage = "Country should only  symbols.")]
         public string Country { get; private set; }
-
+      
         public UserAddress(string street, string city, string state, string postalCode, string country)
         {
             Street = street;

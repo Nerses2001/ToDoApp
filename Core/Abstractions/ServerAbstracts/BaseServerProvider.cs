@@ -1,4 +1,4 @@
-﻿namespace ToDoAppUsingRepositoryPattern.Infrastructure.Abstracts.ServerAbstracts
+﻿namespace ToDoAppUsingRepositoryPattern.Core.Abstractions.ServerAbstracts
 {
     abstract class BaseServerProvider
     {

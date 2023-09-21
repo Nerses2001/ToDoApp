@@ -1,13 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using ToDoAppUsingRepositoryPattern.Core.Models.UserModel.AddressModel;
 namespace ToDoAppUsingRepositoryPattern.Core.Models.UserModel
 {
     public class User
     {
-        public int Id { get; }
-
-        [Required(ErrorMessage = "User ID is required.")]
-        public int UserId { get; private set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
 
         [Required(ErrorMessage = "First name is required.")]
         [RegularExpression(@"^[A-Za-z]+$", ErrorMessage = "First name should only contain letters.")]
@@ -32,22 +32,39 @@ namespace ToDoAppUsingRepositoryPattern.Core.Models.UserModel
         [DataType(DataType.Date)]
         public DateTime DateOfBirth { get; private set; }
 
-        [Required(ErrorMessage = "Address is required.")]
-        public UserAddress Address { get; private set; }
+        [Required(ErrorMessage = "Street cannot be null or empty.")]
+        public string Street { get; private set; }
 
+        [Required(ErrorMessage = "City cannot be null or empty.")]
+        [RegularExpression(@"^[A-Za-z]+$", ErrorMessage = "City should only contain letters.")]
+        public string City { get; private set; }
 
-        public User(int userId, string firstName, string lastName, string email, string passwordHash,
-                     string phoneNumber, DateTime dateOfBirth, UserAddress address)
+        [Required(ErrorMessage = "State cannot be null or empty.")]
+        [RegularExpression(@"^[A-Za-z]+$", ErrorMessage = "State should only contain letters.")]
+        public string State { get; private set; }
+
+        [Required(ErrorMessage = "PostalCode cannot be null or empty.")]
+        [RegularExpression(@"^\+\d+$", ErrorMessage = "PostalCode should start with a plus sign (+) followed by numbers.")]
+        public string PostalCode { get; private set; }
+
+        [Required(ErrorMessage = "Country cannot be null or empty.")]
+        [RegularExpression(@"^[A-Za-z]+$", ErrorMessage = "Country should only  symbols.")]
+        public string Country { get; private set; }
+        public User(string firstName, string lastName, string email, string passwordHash,
+                     string phoneNumber, DateTime dateOfBirth, string street, string city, string state, string postalCode, string country)
         {
 
-            UserId = userId;
             FirstName = firstName;
             LastName = lastName;
             Email = email;
             PasswordHash = passwordHash;
             PhoneNumber = phoneNumber;
             DateOfBirth = dateOfBirth;
-            Address = address;
+            Street = street;
+            City = city;
+            State = state;
+            PostalCode = postalCode;
+            Country = country;
             ValidateInput();
 
         }

@@ -2,7 +2,7 @@
 
 using System.Net;
 
-namespace ToDoAppUsingRepositoryPattern.Infrastructure.Interfaces.ServerInterfases
+namespace ToDoAppUsingRepositoryPattern.Application.Service.Interfaces.ServerInterfases
 {
     internal interface IRequestProcessor
     {

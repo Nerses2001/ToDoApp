@@ -1,26 +1,24 @@
 ﻿using System.Net;
-using ToDoAppUsingRepositoryPattern.Infrastructure.Abstracts.ServerAbstracts;
-using ToDoAppUsingRepositoryPattern.Infrastructure.Interfaces.RepasitoryInterfaces;
-using ToDoAppUsingRepositoryPattern.Infrastructure.Interfaces.ServerInterfases;
-using ToDoAppUsingRepositoryPattern.Infrastructure.Server.RequestProcessor;
+using ToDoAppUsingRepositoryPattern.Application.Service.Interfaces.ServerInterfases;
+using ToDoAppUsingRepositoryPattern.Core.Abstractions.ServerAbstracts;
 
-namespace ToDoAppUsingRepositoryPattern.Infrastructure.Server
+namespace ToDoAppUsingRepositoryPattern.Application.Service.Server
 {
-    internal class ServerProvider:BaseServerProvider,IServerProvider,IDisposable
+    internal class ServerProvider : BaseServerProvider, IServerProvider, IDisposable
     {
         private readonly HttpListener _listener;
-      //  private readonly IUserRepository _userRepository;
+        //  private readonly IUserRepository _userRepository;
         private readonly IRequestProcessor _request;
 
         public ServerProvider(IRequestProcessor request)
         {
-            this._listener = new();
+            _listener = new();
             _listener.Prefixes.Add($"{baseUrl}:{port}/");
 
-            this._request = request;
+            _request = request;
         }
 
-      
+
         public async Task StartAsync()
         {
             Console.WriteLine("Listening for requests...");
@@ -33,7 +31,7 @@ namespace ToDoAppUsingRepositoryPattern.Infrastructure.Server
                     HttpListenerContext context = await _listener.GetContextAsync();
                     await _request.HandlePostRequestAsync(context);
 
-                    
+
                 }
                 else
                 {
