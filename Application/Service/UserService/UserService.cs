@@ -17,5 +17,10 @@ namespace ToDoAppUsingRepositoryPattern.Application.Service.UserService
         {
             _userRepository.Create(user);
         }
+
+        public User GetUserByEmail(string email)
+        {
+           return _userRepository.GetByEmail(email);
+        }
     }
 }

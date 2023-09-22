@@ -4,7 +4,7 @@ namespace ToDoAppUsingRepositoryPattern.Application.Service.Interfaces.ServerInt
 {
     internal interface IPostRequest
     {
-        Task HandlePostRequestAsync<T>(HttpListenerRequest request, HttpListenerResponse response);
+        Task HandlePostRequestAsync<T>(HttpListenerRequest request, HttpListenerResponse response, string url);
 
     }
 }

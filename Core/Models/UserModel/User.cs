@@ -1,6 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using ToDoAppUsingRepositoryPattern.Core.Models.UserModel.AddressModel;
 namespace ToDoAppUsingRepositoryPattern.Core.Models.UserModel
 {
     public class User
@@ -50,21 +50,25 @@ namespace ToDoAppUsingRepositoryPattern.Core.Models.UserModel
         [Required(ErrorMessage = "Country cannot be null or empty.")]
         [RegularExpression(@"^[A-Za-z]+$", ErrorMessage = "Country should only  symbols.")]
         public string Country { get; private set; }
+
+        internal ICollection<UserTask> UserTasks { get; private set; }
+
         public User(string firstName, string lastName, string email, string passwordHash,
                      string phoneNumber, DateTime dateOfBirth, string street, string city, string state, string postalCode, string country)
         {
 
-            FirstName = firstName;
-            LastName = lastName;
-            Email = email;
-            PasswordHash = passwordHash;
-            PhoneNumber = phoneNumber;
-            DateOfBirth = dateOfBirth;
-            Street = street;
-            City = city;
-            State = state;
-            PostalCode = postalCode;
-            Country = country;
+            this.FirstName = firstName;
+            this.LastName = lastName;
+            this.Email = email;
+            this.PasswordHash = passwordHash;
+            this.PhoneNumber = phoneNumber;
+            this.DateOfBirth = dateOfBirth;
+            this.Street = street;
+            this.City = city;
+            this.State = state;
+            this.PostalCode = postalCode;
+            this.Country = country;
+            this.UserTasks = new List<UserTask>();
             ValidateInput();
 
         }

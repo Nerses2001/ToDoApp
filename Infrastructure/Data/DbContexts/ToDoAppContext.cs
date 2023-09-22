@@ -7,7 +7,9 @@ namespace ToDoAppUsingRepositoryPattern.Infrastructure.Data.DbContexts
     internal class ToDoAppContext: DbContext
     {
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<User> Users { get; private set; }
+       public DbSet<UserTask> UserTasks { get; private set; }
+
 
         public ToDoAppContext() : base(GetDbContextOptions())
         {
@@ -29,6 +31,15 @@ namespace ToDoAppUsingRepositoryPattern.Infrastructure.Data.DbContexts
             optionsBuilder.UseSqlServer(builder.ConnectionString);
 
             return optionsBuilder.Options;
+        }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
+            modelBuilder.Entity<User>().HasAlternateKey(e => e.PhoneNumber);
+            modelBuilder.Entity<UserTask>()
+                  .HasOne<User>(ut => ut.User)
+                  .WithMany(u => u.UserTasks)
+                  .HasForeignKey(ut => ut.UserId);
         }
     }
 }

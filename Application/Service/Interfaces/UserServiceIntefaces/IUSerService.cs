@@ -5,5 +5,7 @@ namespace ToDoAppUsingRepositoryPattern.Application.Service.Interfaces.UserServi
     internal interface IUserService
     {
         void CreateUser(User user);
+        User GetUserByEmail(string email);
+
     }
 }

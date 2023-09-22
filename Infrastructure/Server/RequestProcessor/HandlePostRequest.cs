@@ -6,18 +6,21 @@ using ToDoAppUsingRepositoryPattern.Core.Models;
 using ToDoAppUsingRepositoryPattern.Core.Abstractions.ServerAbstracts;
 using ToDoAppUsingRepositoryPattern.Application.Service.Interfaces.UserServiceIntefaces;
 using ToDoAppUsingRepositoryPattern.Core.Models.UserModel;
+using ToDoAppUsingRepositoryPattern.Presentation.Interfases;
+using ToDoAppUsingRepositoryPattern.Core.Models.UserModel.Login;
 
 namespace ToDoAppUsingRepositoryPattern.Infrastructure.Server.RequestProcessor
 {
     internal class HandlePostRequest : Response, IPostRequest
     {
-        private readonly IUserService _userService;
+        private readonly IUserController _userController;
 
-        public HandlePostRequest(IUserService userService)
+        public HandlePostRequest(IUserController controller)
         {
-            _userService = userService;
+
+            this._userController = controller;
         }
-        public async Task HandlePostRequestAsync<T>(HttpListenerRequest request, HttpListenerResponse response)
+        public async Task HandlePostRequestAsync<T>(HttpListenerRequest request, HttpListenerResponse response, string url)
         {
             using StreamReader reader = new(request.InputStream);
             string requestBody = await reader.ReadToEndAsync();
@@ -26,13 +29,17 @@ namespace ToDoAppUsingRepositoryPattern.Infrastructure.Server.RequestProcessor
                 T model = JsonSerializer.Deserialize<T>(requestBody)!;
                 
                 Console.WriteLine(requestBody);
+                ResponseModel<int> responseData = new(true, " Data received and processed successfully", 200);
+
                 switch (model)
                 {
-                    case User user:
-                        ResponseModel<int> responseData = new(true, " Data received and processed successfully", 200);
-                        _userService.CreateUser(user);
-                        await SendResponse(response, HttpStatusCode.OK, responseData);
-                        
+                    case User user when model is User:
+                      //   _userService.CreateUser(user);
+                      //   await SendResponse(response, HttpStatusCode.OK, responseData);
+                        await _userController.CreatUser(user, response, url, request.Url!.AbsolutePath);
+                        break;
+                    case UserLogin userLogin:
+                        await _userController.LoginUser(userLogin, response, url, request.Url!.AbsolutePath);
                         break;
                 }
             }

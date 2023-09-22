@@ -5,5 +5,6 @@ namespace ToDoAppUsingRepositoryPattern.Infrastructure.Interfaces.RepasitoryInte
     internal interface IUserRepository
     {
         void Create(User user);
+        User GetByEmail(string email);
     }
 }
