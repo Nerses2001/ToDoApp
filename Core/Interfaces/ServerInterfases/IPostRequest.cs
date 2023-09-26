@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace ToDoAppUsingRepositoryPattern.Application.Service.Interfaces.ServerInterfases
+namespace ToDoAppUsingRepositoryPattern.Core.Interfaces.ServerInterfases
 {
     internal interface IPostRequest
     {

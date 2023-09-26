@@ -5,9 +5,9 @@ using ToDoAppUsingRepositoryPattern.Core.Models;
 
 namespace ToDoAppUsingRepositoryPattern.Core.Abstractions.ServerAbstracts
 {
-    abstract class Response
+    abstract class BaseResponse
     {
-        protected virtual async Task SendResponse<T>(HttpListenerResponse response, HttpStatusCode statusCode, ResponseModel<T> responseData)
+        protected virtual async Task SendResponse<T>(HttpListenerResponse response, HttpStatusCode statusCode, T responseData)
         {
             string jsonResponse = JsonConvert.SerializeObject(responseData);
             byte[] buffer = Encoding.UTF8.GetBytes(jsonResponse);

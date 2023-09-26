@@ -1,24 +1,26 @@
 ﻿//using Newtonsoft.Json;
 using System.Text.Json;
 using System.Net;
-using ToDoAppUsingRepositoryPattern.Application.Service.Interfaces.ServerInterfases;
 using ToDoAppUsingRepositoryPattern.Core.Models;
 using ToDoAppUsingRepositoryPattern.Core.Abstractions.ServerAbstracts;
-using ToDoAppUsingRepositoryPattern.Application.Service.Interfaces.UserServiceIntefaces;
 using ToDoAppUsingRepositoryPattern.Core.Models.UserModel;
-using ToDoAppUsingRepositoryPattern.Presentation.Interfases;
 using ToDoAppUsingRepositoryPattern.Core.Models.UserModel.Login;
+using ToDoAppUsingRepositoryPattern.Core.Interfaces.ServerInterfases;
+using ToDoAppUsingRepositoryPattern.Core.Interfaces.ControllersInerfases;
 
 namespace ToDoAppUsingRepositoryPattern.Infrastructure.Server.RequestProcessor
 {
-    internal class HandlePostRequest : Response, IPostRequest
+    internal class HandlePostRequest : BaseResponse, IPostRequest
     {
         private readonly IUserController _userController;
+        private readonly ITaskController _taskController;
 
-        public HandlePostRequest(IUserController controller)
+        public HandlePostRequest(IUserController controller, ITaskController taskController)
         {
 
             this._userController = controller;
+            this._taskController = taskController;
+
         }
         public async Task HandlePostRequestAsync<T>(HttpListenerRequest request, HttpListenerResponse response, string url)
         {
@@ -26,7 +28,7 @@ namespace ToDoAppUsingRepositoryPattern.Infrastructure.Server.RequestProcessor
             string requestBody = await reader.ReadToEndAsync();
             try
             {
-                T model = JsonSerializer.Deserialize<T>(requestBody)!;
+                T model =  JsonSerializer.Deserialize<T>(requestBody)!;
                 
                 Console.WriteLine(requestBody);
                 ResponseModel<int> responseData = new(true, " Data received and processed successfully", 200);
@@ -41,6 +43,10 @@ namespace ToDoAppUsingRepositoryPattern.Infrastructure.Server.RequestProcessor
                     case UserLogin userLogin:
                         await _userController.LoginUser(userLogin, response, url, request.Url!.AbsolutePath);
                         break;
+                    case UserTask userTask:
+                        await _taskController.CreatTask(userTask, response, url, request.Url!.AbsolutePath);
+                        break;
+
                 }
             }
             catch (Exception ex)

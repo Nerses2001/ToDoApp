@@ -1,8 +1,6 @@
-﻿
-
-using ToDoAppUsingRepositoryPattern.Application.Service.Interfaces.UserServiceIntefaces;
+﻿using ToDoAppUsingRepositoryPattern.Core.Interfaces.RepasitoryInterfaces;
+using ToDoAppUsingRepositoryPattern.Core.Interfaces.ServiceInterfaces;
 using ToDoAppUsingRepositoryPattern.Core.Models.UserModel;
-using ToDoAppUsingRepositoryPattern.Infrastructure.Interfaces.RepasitoryInterfaces;
 
 namespace ToDoAppUsingRepositoryPattern.Application.Service.UserService
 {

@@ -1,17 +1,17 @@
 ﻿using System.Net;
-using ToDoAppUsingRepositoryPattern.Application.Service.Interfaces.UserServiceIntefaces;
 using ToDoAppUsingRepositoryPattern.Core.Abstractions.ServerAbstracts;
+using ToDoAppUsingRepositoryPattern.Core.Interfaces.ControllersInerfases;
+using ToDoAppUsingRepositoryPattern.Core.Interfaces.ServiceInterfaces;
 using ToDoAppUsingRepositoryPattern.Core.Models;
 using ToDoAppUsingRepositoryPattern.Core.Models.UserModel;
 using ToDoAppUsingRepositoryPattern.Core.Models.UserModel.Login;
-using ToDoAppUsingRepositoryPattern.Presentation.Interfases;
 
 namespace ToDoAppUsingRepositoryPattern.Presentation.Controllers
 {
-    internal class UserServiceController: Response,IUserController
+    internal class UserController: BaseResponse,IUserController
     {
         private readonly IUserService _userService;
-        public UserServiceController(IUserService userService)
+        public UserController(IUserService userService)
         {
             this._userService = userService;
         }
@@ -23,7 +23,7 @@ namespace ToDoAppUsingRepositoryPattern.Presentation.Controllers
             {
                 ResponseModel<int> responseData = new(true, " Data received and processed successfully", 200);
                 _userService.CreateUser(user);
-                await SendResponse<int>(response, HttpStatusCode.OK, responseData);
+                await SendResponse<ResponseModel<int>>(response, HttpStatusCode.OK, responseData);
             }
         }
 
@@ -51,7 +51,7 @@ namespace ToDoAppUsingRepositoryPattern.Presentation.Controllers
                 }
             }
         }
-        private bool IsValidEmail(string email)
+        private static bool IsValidEmail(string email)
         {
             try
             {

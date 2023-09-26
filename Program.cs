@@ -1,23 +1,31 @@
-﻿using ToDoAppUsingRepositoryPattern.Application.Service.Interfaces.ServerInterfases;
-using ToDoAppUsingRepositoryPattern.Application.Service.Interfaces.UserServiceIntefaces;
-using ToDoAppUsingRepositoryPattern.Application.Service.Server;
+﻿using ToDoAppUsingRepositoryPattern.Application.Service.Server;
+using ToDoAppUsingRepositoryPattern.Application.Service.TaskService;
 using ToDoAppUsingRepositoryPattern.Application.Service.UserService;
+using ToDoAppUsingRepositoryPattern.Core.Interfaces.ControllersInerfases;
+using ToDoAppUsingRepositoryPattern.Core.Interfaces.RepasitoryInterfaces;
+using ToDoAppUsingRepositoryPattern.Core.Interfaces.ServerInterfases;
+using ToDoAppUsingRepositoryPattern.Core.Interfaces.ServiceInterfaces;
+using ToDoAppUsingRepositoryPattern.Core.Interfaces.TaskServiceInterfaces;
 using ToDoAppUsingRepositoryPattern.Infrastructure.Data.DbContexts;
-using ToDoAppUsingRepositoryPattern.Infrastructure.Interfaces.RepasitoryInterfaces;
+using ToDoAppUsingRepositoryPattern.Infrastructure.Repository.TaskRepository;
 using ToDoAppUsingRepositoryPattern.Infrastructure.Repository.UserRepository;
 using ToDoAppUsingRepositoryPattern.Infrastructure.Server.RequestProcessor;
 using ToDoAppUsingRepositoryPattern.Presentation.Controllers;
-using ToDoAppUsingRepositoryPattern.Presentation.Interfases;
 
 ToDoAppContext context = new();
 
 IUserRepository userRepository = new UserRepository(context);
+ITaskRepasitory taskRepasitory = new TaskRepository(context);
 IUserService userService = new UserService(userRepository);
+ITaskService taskService = new TaskService(taskRepasitory);
 
-IUserController userController = new UserServiceController(userService);
-IPostRequest postRequest = new HandlePostRequest(userController);
+IUserController userController = new UserController(userService);
+ITaskController taskController = new TaskController(taskService);
+ITaskControllerForGet taskControllerFor = new TaskController(taskService);
 
-IRequestProcessor requestHandler = new RequestProcessor(postRequest);
+IPostRequest postRequest = new HandlePostRequest(userController,taskController);
+IGetRequest getRequest = new HandleGetRequest(taskControllerFor);
+IRequestProcessor requestHandler = new RequestProcessor(postRequest,getRequest);
 
 ServerProvider server = new(requestHandler);
 

@@ -1,6 +1,6 @@
 ﻿using ToDoAppUsingRepositoryPattern.Core.Models.UserModel;
 
-namespace ToDoAppUsingRepositoryPattern.Infrastructure.Interfaces.RepasitoryInterfaces
+namespace ToDoAppUsingRepositoryPattern.Core.Interfaces.RepasitoryInterfaces
 {
     internal interface IUserRepository
     {

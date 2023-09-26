@@ -2,8 +2,8 @@
 {
     abstract class BaseServerProvider
     {
-        protected const string baseUrl = "http://localhost";
-        protected const int port = 8080;
+        protected const string BaseUrl = "http://localhost";
+        protected const int Port = 8080;
 
     }
 }

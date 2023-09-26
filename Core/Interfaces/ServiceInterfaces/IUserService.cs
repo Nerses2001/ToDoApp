@@ -1,6 +1,6 @@
 ﻿using ToDoAppUsingRepositoryPattern.Core.Models.UserModel;
 
-namespace ToDoAppUsingRepositoryPattern.Application.Service.Interfaces.UserServiceIntefaces
+namespace ToDoAppUsingRepositoryPattern.Core.Interfaces.ServiceInterfaces
 {
     internal interface IUserService
     {
